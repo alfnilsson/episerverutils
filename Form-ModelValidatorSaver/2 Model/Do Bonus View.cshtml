@@ -1,0 +1,9 @@
+@using Toders.FormMVS.Models.Forms
+@model FormPage
+
+@using (Html.BeginForm())
+{
+    var form = new NameFormModel();
+    @Html.TextBoxFor(m => form.Name)
+    <input type="submit" />
+}
