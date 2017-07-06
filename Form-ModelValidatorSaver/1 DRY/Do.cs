@@ -1,10 +1,3 @@
-using System.Web.Mvc;
-using EPiServer;
-using Toders.FormMVS.Core.Forms.Name;
-using Toders.FormMVS.Models.Forms;
-using Toders.FormMVS.Models.Pages;
-using Toders.FormMVS.Models.ViewModels;
-
 namespace Toders.FormMVS.Controllers
 {
     public class FormPageController : PageControllerBase<FormPage>
