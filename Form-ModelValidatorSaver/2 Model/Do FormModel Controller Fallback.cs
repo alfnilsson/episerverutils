@@ -8,28 +8,29 @@ namespace Toders.FormMVS.Controllers
         }
 
         [HttpPost]
-        public ViewResult Index(FormPage currentPage, FormCollection form)
+        public ViewResult Index(FormPage currentPage, FormModel form)
         {
-            var name = form["name"];
-            var email = form["email"];
-            var phone = form["phone"];
-            var street1 = form["street1"];
-            var street2 = form["street2"];
-            var postalcode = form["postalcode"];
-            var city = form["city"];
-            var country = form["country"];
-
-            if (ValidateForm(name, email, phone, street1, street2, postalcode, city, country))
+            ApplyFallbacks(form);
+            
+            if (ValidateForm(model))
             {
-                SaveForm(form);
+                SaveForm(model);
             }
 
             return View(currentPage);
         }
 
-        private void ValidateForm(string name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
+        private void ApplyFallbacks(FormCollection form)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(form.Name) && User.Identity.IsAuthenticated)
+            {
+                form.Name = User.Identity.Name;
+            }
+        }
+
+        private bool ValidateForm(FormModel model)
+        {
+            if (string.IsNullOrEmpty(model.Name))
             {
                 // Handle validation message
                 return false;
@@ -41,54 +42,53 @@ namespace Toders.FormMVS.Controllers
                 return false;
             }
 
+            var email = model.Email;
             if (string.IsNullOrEmpty(email) || ValidEmail(email) == false)
             {
                 // Handle validation message
                 return false;
             }
 
-            if (string.IsNullOrEmpty(phone))
+            if (string.IsNullOrEmpty(model.Phone))
             {
                 // Handle validation message
                 return false;
             }
 
-            if (string.IsNullOrEmpty(street1))
+            if (string.IsNullOrEmpty(model.Street1))
             {
                 // Handle validation message
                 return false;
             }
 
-            if (string.IsNullOrEmpty(street2))
+            if (string.IsNullOrEmpty(model.Street2))
             {
                 // Handle validation message
                 return false;
             }
 
-            if (string.IsNullOrEmpty(postalcode))
+            if (string.IsNullOrEmpty(model.Postalcode))
             {
                 // Handle validation message
                 return false;
             }
 
-            if (string.IsNullOrEmpty(city))
+            if (string.IsNullOrEmpty(model.City))
             {
                 // Handle validation message
                 return false;
             }
 
-            if (string.IsNullOrEmpty(country))
+            if (string.IsNullOrEmpty(model.Country))
             {
                 // Handle validation message
                 return false;
             }
-
-            return true;
         }
 
-        private void SaveForm(name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
+        private void SaveForm(FormModel model)
         {
-            SaveFormSomewhere(name, string email, string phone, string street1, string street2, string postalcode, string city, string country);
+            SaveFormSomewhere(FormModel model);
             // Handle confirmation message
         }
     }

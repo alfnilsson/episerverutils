@@ -13,14 +13,14 @@ namespace Toders.FormMVS.Controllers
             var validationResult = new Validator().Validate(form);
             if (validationResult.Success == false)
             {
-                // Handle validation message
+                // Handle validation message from validationResult.Messages
             }
             else
             {
                 var saveResult = new Saver().Save(form);
                 if (saveResult.Success == false)
                 {
-                    // Handle error message from saving
+                    // Handle error message from saveResult.Messages
                 }
                 else
                 {

@@ -12,23 +12,35 @@ namespace Toders.FormMVS.Controllers
         {
             var name = form["name"];
 
-            ValidateForm(name);
-            SaveForm(name);
+            if (ValidateForm(name))
+            {
+                SaveForm(name);
+            }
 
             return View(currentPage);
         }
 
-        private void ValidateForm(string name)
+        private bool ValidateForm(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 // Handle validation message
+                return false;
             }
+
+            if (name.StartsWith("alf", StringComparison.InvariantCultureIgnoreCase) == false)
+            {
+                // Handle validation message
+                return false;
+            }
+
+            return true;
         }
 
         private void SaveForm(name)
         {
-            SaveFormSomewhere(name)
+            SaveFormSomewhere(name);
+            // Handle confirmation message
         }
     }
 }

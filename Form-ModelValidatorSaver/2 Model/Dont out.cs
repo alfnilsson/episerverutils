@@ -21,8 +21,10 @@ namespace Toders.FormMVS.Controllers
 
             GatherFormInput(out name, out email, out phone, out street1, out street2, out postalcode, out city, out country);
 
-            ValidateForm(name, email, phone, street1, street2, postalcode, city, country);
-            SaveForm(name, email, phone, street1, street2, postalcode, city, country);
+            if (ValidateForm(name, email, phone, street1, street2, postalcode, city, country))
+            {
+                SaveForm(name, email, phone, street1, street2, postalcode, city, country);
+            }
 
             return View(currentPage);
         }
@@ -39,52 +41,61 @@ namespace Toders.FormMVS.Controllers
             country = form["country"];
         }
 
-        private void ValidateForm(string name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
+        private bool ValidateForm(string name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
         {
             if (string.IsNullOrEmpty(name))
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(email) || ValidEmail(email) == false)
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(phone))
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(street1))
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(street2))
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(postalcode))
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(city))
             {
                 // Handle validation message
+                return false;
             }
 
             if (string.IsNullOrEmpty(country))
             {
                 // Handle validation message
+                return false;
             }
         }
 
         private void SaveForm(name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
         {
-            SaveFormSomewhere(name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
+            SaveFormSomewhere(name, string email, string phone, string street1, string street2, string postalcode, string city, string country);
+            // Handle confirmation message
         }
     }
 }

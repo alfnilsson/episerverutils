@@ -10,23 +10,17 @@ namespace Toders.FormMVS.Controllers
         [HttpPost]
         public ViewResult Index(FormPage currentPage, FormCollection form)
         {
-            var name = form["name"];
-
-            if (string.IsNullOrEmpty(name) && User.Identity.IsAuthenticated)
+            if (ValidateForm(form))
             {
-                name = User.Identity.Name;
-            }
-
-            if (ValidateForm(name))
-            {
-                SaveForm(name);
+                SaveForm(form);
             }
 
             return View(currentPage);
         }
 
-        private bool ValidateForm(string name)
+        private bool ValidateForm(FormCollection form)
         {
+            var name = form["name"] ?? User.Identity.IsAuthenticated ? User.Identity.Name : null;
             if (string.IsNullOrEmpty(name))
             {
                 // Handle validation message
@@ -42,9 +36,9 @@ namespace Toders.FormMVS.Controllers
             return true;
         }
 
-        private void SaveForm(name)
+        private void SaveForm(FormCollection form)
         {
-            SaveFormSomewhere(name);
+            SaveFormSomewhere(form["name"] ?? User.Identity.IsAuthenticated ? User.Identity.Name : null);
             // Handle confirmation message
         }
     }

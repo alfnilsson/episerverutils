@@ -10,23 +10,29 @@ namespace Toders.FormMVS.Controllers
         [HttpPost]
         public ViewResult Index(FormPage currentPage, FormCollection form)
         {
-            ValidateForm(form);
-            SaveForm(form);
+            if (ValidateForm(form))
+            {
+                SaveForm(form);
+            }
 
             return View(currentPage);
         }
 
-        private void ValidateForm(FormCollection form)
+        private bool ValidateForm(FormCollection form)
         {
             if (string.IsNullOrEmpty(form["name"]))
             {
                 // Handle error message
+                return false;
             }
+
+            return true;
         }
 
         private void SaveForm(FormCollection form)
         {
-            SaveFormSomewhere(form["name"])
+            SaveFormSomewhere(form["name"]);
+            // Handle confirmation message
         }
     }
 }
