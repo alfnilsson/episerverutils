@@ -21,7 +21,7 @@ namespace Toders.FormMVS.Controllers
 
             if (ValidateForm(name, email, phone, street1, street2, postalcode, city, country))
             {
-                SaveForm(form);
+                SaveForm(name, email, phone, street1, street2, postalcode, city, country);
             }
 
             return View(currentPage);
