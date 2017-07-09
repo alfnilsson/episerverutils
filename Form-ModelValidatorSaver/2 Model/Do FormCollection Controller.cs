@@ -14,8 +14,8 @@ namespace Toders.FormMVS.Controllers
 
             if (ValidateForm(model))
             {
-				SaveForm(model);
-			}
+                SaveForm(model);
+            }
 
             return View(currentPage);
         }

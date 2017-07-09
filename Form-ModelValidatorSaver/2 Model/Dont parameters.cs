@@ -21,13 +21,14 @@ namespace Toders.FormMVS.Controllers
 
             if (ValidateForm(name, email, phone, street1, street2, postalcode, city, country))
             {
-                SaveForm(form);
+                SaveForm(name, email, phone, street1, street2, postalcode, city, country);
             }
 
             return View(currentPage);
         }
 
-        private void ValidateForm(string name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
+        private void ValidateForm(string name, string email, string phone, string street1, string street2, string postalcode,
+            string city, string country)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -86,9 +87,11 @@ namespace Toders.FormMVS.Controllers
             return true;
         }
 
-        private void SaveForm(name, string email, string phone, string street1, string street2, string postalcode, string city, string country)
+        private void SaveForm(name, string email, string phone, string street1, string street2, string postalcode, string city,
+            string country)
         {
-            SaveFormSomewhere(name, string email, string phone, string street1, string street2, string postalcode, string city, string country);
+            SaveFormSomewhere(name, string email, string phone, string street1, string street2, string postalcode, string city,
+                string country);
             // Handle confirmation message
         }
     }
